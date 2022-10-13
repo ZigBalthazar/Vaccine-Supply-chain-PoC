@@ -92,7 +92,7 @@ contract coldChain{
 
         emit IssueCertificateEvent(_issuer, _prover, certificateIds.length-1);
         return certificateIds.length-1;
-        
+
         
     }
 
@@ -118,6 +118,14 @@ contract coldChain{
         }
 
         revert("invalid status");
+    }
+
+    function isMatchingSignature(bytes32 _msg,uint _id, address _issuer) public view returns(bool) {
+        certificate memory _certificate = certificates[_id];
+        require(_certificate.issuer.id == _issuer);
+        address recoverdSigner = cryptoSuite.recoverSigner(_msg, _certificate.signature);
+
+        return recoverdSigner == _certificate.issuer.id;
     }
 
 }
