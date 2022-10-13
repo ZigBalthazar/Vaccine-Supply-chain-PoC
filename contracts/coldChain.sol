@@ -17,7 +17,7 @@ contract coldChain{
         entity issuer;
         entity prover;
         bytes signature;
-        // status _status;
+        certificateStatus _status;
     }
     struct vaccineBatch{
         uint id;
@@ -74,6 +74,50 @@ contract coldChain{
         vaccineBatchIds.push(_id);
         emit addVaccineBatchEvent(_id, _manufacturer);
         return _id;
+    }
+
+    function issueCertificate(address _issuer, address _prover, string memory _status, uint vaccineBatchId, bytes memory _sig) public returns(uint) {
+        entity memory issuer = entities[_issuer];
+        require(issuer._mode == mode.ISSUER);
+
+        entity memory prover = entities[_prover];
+        require(prover._mode == mode.PROVER);
+
+        certificateStatus status = unmarshalStatus(_status);
+        uint id = certificateIds.length;
+        certificate memory _certificate = certificate(id,issuer,prover,_sig,status);
+
+        certificateIds.push(certificateIds.length);
+        certificates[certificateIds.length-1] = _certificate;
+
+        emit IssueCertificateEvent(_issuer, _prover, certificateIds.length-1);
+        return certificateIds.length-1;
+        
+        
+    }
+
+    
+    function unmarshalStatus(string memory _status) private pure returns(certificateStatus status_) {
+        bytes32 encodedMode = keccak256(abi.encodePacked(_status));
+        bytes32 encodedMode0 = keccak256(abi.encodePacked("MANUFACTURED"));
+        bytes32 encodedMode1 = keccak256(abi.encodePacked("DELIVERING_INTERNATIONAL"));
+        bytes32 encodedMode2 = keccak256(abi.encodePacked("STORED"));
+        bytes32 encodedMode3 = keccak256(abi.encodePacked("DELIVERING_LOCAL"));
+        bytes32 encodedMode4 = keccak256(abi.encodePacked("DELIVERD"));
+
+        if(encodedMode == encodedMode0){
+            return certificateStatus.MANUFACTURED;
+        }else if(encodedMode == encodedMode1){
+            return certificateStatus.DELIVERING_INTERNATIONAL;
+        } else if(encodedMode == encodedMode2){
+            return certificateStatus.STORED;
+        } else if(encodedMode == encodedMode3){
+            return certificateStatus.DELIVERING_LOCAL;
+        } else if(encodedMode == encodedMode4){
+            return certificateStatus.DELIVERD;
+        }
+
+        revert("invalid status");
     }
 
 }
