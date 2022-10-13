@@ -65,4 +65,15 @@ contract coldChain{
 
         revert("invalid entity mode");
     }
+
+    function addVaccineBatch(string memory _brand, address _manufacturer) public returns(uint){
+        uint[] memory _certificateIds = new uint[](MAX_CERTIFICATION);
+        uint _id = vaccineBatchIds.length;
+        vaccineBatch memory _vaccineBatch = vaccineBatch(_id, _brand, _manufacturer, _certificateIds);
+        vaccineBatches[_id] = _vaccineBatch;
+        vaccineBatchIds.push(_id);
+        emit addVaccineBatchEvent(_id, _manufacturer);
+        return _id;
+    }
+
 }
