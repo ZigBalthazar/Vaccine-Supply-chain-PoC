@@ -20,7 +20,21 @@ contract coldChain{
         // status _status;
     }
     struct vaccineBatch{
-        
+        uint id;
+        string brand;
+        address manifacturer;
+        uint[] certificateIds;
     }
+
+    mapping (uint => vaccineBatch) public vaccineBatches;
+    mapping (uint => certificate) public certificates;
+    mapping (address => entity) public entities;
+    
+    
+
+    uint public constant MAX_CERTIFICATION = 2;
+    uint[] public certificateIds;
+    uint[] public vaccineBatchIds;
+
 
 }
