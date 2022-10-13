@@ -5,7 +5,7 @@ import "./libs/cryptoSuite.sol";
 contract coldChain{
     
     enum certificateStatus{ MANUFACTURED, DELIVERING_INTERNATIONAL, STORED, DELIVERING_LOCAL, DELIVERD }
-    enum mode { ISSUER, PROVIDER, VERIFIER }
+    enum mode { ISSUER, PROVER, VERIFIER }
     
     struct entity{
         address id;
@@ -15,7 +15,7 @@ contract coldChain{
     struct certificate{
         uint id;
         entity issuer;
-        entity provider;
+        entity prover;
         bytes signature;
         // status _status;
     }
@@ -37,9 +37,32 @@ contract coldChain{
     uint[] public vaccineBatchIds;
 
     //events
-    event addEntity(address entityId, string entityMode);
-    event addVaccineBatch(uint vaccineBatchId, address indexed manufacturer);
-    event IssueCertificate(address indexed issuer, address indexed provider, uint certificateId);
-    
+    event addEntityEvent(address entityId, string entityMode);
+    event addVaccineBatchEvent(uint vaccineBatchId, address indexed manufacturer);
+    event IssueCertificateEvent(address indexed issuer, address indexed prover, uint certificateId);
 
+    function addEntity(address _id, string memory _mode) public {
+        mode mode_ = unmarshalMode(_mode);
+        uint[] memory _certificateIds = new uint[](MAX_CERTIFICATION);
+        entity memory _entity = entity(_id, mode_, _certificateIds);
+        entities[_id] = _entity;
+        emit addEntityEvent(_id, _mode); 
+    }
+
+    function unmarshalMode(string memory _mode) private pure returns(mode mode_) {
+        bytes32 encodedMode = keccak256(abi.encodePacked(_mode));
+        bytes32 encodedMode0 = keccak256(abi.encodePacked("ISSUER"));
+        bytes32 encodedMode1 = keccak256(abi.encodePacked("PROVER"));
+        bytes32 encodedMode2 = keccak256(abi.encodePacked("VERIFIER"));
+
+        if(encodedMode == encodedMode0){
+            return mode.ISSUER;
+        }else if(encodedMode == encodedMode1){
+            return mode.PROVER;
+        } else if(encodedMode == encodedMode2){
+            return mode.VERIFIER;
+        }
+
+        revert("invalid entity mode");
+    }
 }
