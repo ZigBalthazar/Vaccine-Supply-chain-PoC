@@ -29,12 +29,17 @@ contract coldChain{
     mapping (uint => vaccineBatch) public vaccineBatches;
     mapping (uint => certificate) public certificates;
     mapping (address => entity) public entities;
-    
+
     
 
     uint public constant MAX_CERTIFICATION = 2;
     uint[] public certificateIds;
     uint[] public vaccineBatchIds;
 
+    //events
+    event addEntity(address entityId, string entityMode);
+    event addVaccineBatch(uint vaccineBatchId, address indexed manufacturer);
+    event IssueCertificate(address indexed issuer, address indexed provider, uint certificateId);
+    
 
 }
