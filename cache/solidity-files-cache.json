@@ -1,0 +1,77 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "D:\\pouya\\project\\solidity\\supplyChain\\Vaccine-Supply-chain-PoC\\contracts\\coldChain.sol": {
+      "lastModificationDate": 1665691642761,
+      "contentHash": "d312932c2f2ef5d231859ebe56d6f91a",
+      "sourceName": "contracts/coldChain.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./libs/cryptoSuite.sol"
+      ],
+      "versionPragmas": [
+        "0.8.13"
+      ],
+      "artifacts": [
+        "coldChain"
+      ]
+    },
+    "D:\\pouya\\project\\solidity\\supplyChain\\Vaccine-Supply-chain-PoC\\contracts\\libs\\cryptoSuite.sol": {
+      "lastModificationDate": 1665691035046,
+      "contentHash": "9d9b5d8c799acd59fb157e7d38977572",
+      "sourceName": "contracts/libs/cryptoSuite.sol",
+      "solcConfig": {
+        "version": "0.8.13",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.8.13"
+      ],
+      "artifacts": [
+        "cryptoSuite"
+      ]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "coldChain",
+  "sourceName": "contracts/coldChain.sol",
+  "abi": [],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220f46fe03fe0f55fba702bf6dae2f325f53508a2d045a008196240c9a911d4b9df64736f6c634300080d0033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220f46fe03fe0f55fba702bf6dae2f325f53508a2d045a008196240c9a911d4b9df64736f6c634300080d0033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
